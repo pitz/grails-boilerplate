@@ -13,3 +13,7 @@ Para barrar utilizações mal intencionadas na API, um interceptor foi criado. O
 ![carbon (18)](https://user-images.githubusercontent.com/42384045/74953925-10a1af00-53e1-11ea-8404-f348378e176b.png)
 
 Eu ressalto que não é uma boa prática manter informações sigilosas (informações de base de produção) neste arquivo de configuração. 
+
+#### Como executar
+O primeiro passo para executar este projeto é criar um schema no seu banco de dados conforme você configurou as informações de dataSource no arquivo `application.yml`
+ 
