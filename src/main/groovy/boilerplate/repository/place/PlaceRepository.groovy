@@ -36,6 +36,10 @@ class PlaceRepository {
                 eq("state", search.state)
             }
 
+            if (search.containsKey("publicId")) {
+                eq("publicId", search.publicId)
+            }
+
             if (search.containsKey("exists")) {
                 projections {
                     property "id"
@@ -48,7 +52,7 @@ class PlaceRepository {
         return query
     }
 
-    public static Place get(long id) {
-        return PlaceRepository.query([id: id]).get()
+    public static Place get(String publicId) {
+        return PlaceRepository.query([publicId: publicId]).get()
     }
 }
