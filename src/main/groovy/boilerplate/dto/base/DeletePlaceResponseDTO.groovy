@@ -1,10 +1,12 @@
-package boilerplate.dto.place.delete
+package boilerplate.dto.base
 
 import grails.compiler.GrailsCompileStatic
 
 @GrailsCompileStatic
-class DeletePlaceResponseDTO {
+class BaseResponseDTO {
 
-    Long id
+    String id
+
+    String errorMessage
     
 }

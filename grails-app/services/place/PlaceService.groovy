@@ -1,16 +1,12 @@
 package boilerplate.services.place
 
 import boilerplate.domain.place.Place
-
-import boilerplate.dto.place.delete.DeletePlaceResponseDTO
 import boilerplate.dto.place.save.SavePlaceDTO
-import boilerplate.dto.place.save.SavePlaceResponseDTO
-import boilerplate.dto.place.show.ShowPlaceResponseDTO
-import grails.compiler.GrailsCompileStatic
-
 import boilerplate.repository.place.PlaceRepository
 import boilerplate.utils.DomainUtils
 import boilerplate.utils.MessageUtils
+
+import grails.compiler.GrailsCompileStatic
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -23,7 +19,6 @@ class PlaceService {
 
         Place place = new Place(placeDto)
         place.save(failOnError: true)
-
         return place
     }
 
@@ -37,14 +32,8 @@ class PlaceService {
         return validatePlace
     }
 
-    public Place get(Long placeId) {
-        Place place = PlaceRepository.get(placeId)
-        if (!place || place.deleted) return null
-        return place
-    }
-
-    public Place delete(Long placeId) {
-        Place place = PlaceRepository.get(placeId)
+    public Place delete(String publicId) {
+        Place place = PlaceRepository.get(publicId)
 
         if (!place) return null
         if (place.deleted) {
@@ -54,8 +43,6 @@ class PlaceService {
         
         place.deleted = true
         place.save(failOnError: true)
-
         return place
     }
-
 }

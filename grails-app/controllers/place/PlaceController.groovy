@@ -3,8 +3,10 @@ package boilerplate.controller.place
 import boilerplate.controller.base.BaseController
 import boilerplate.domain.place.Place
 import boilerplate.dto.place.save.SavePlaceDTO
-import boilerplate.dto.place.save.SavePlaceResponseDTO
+import boilerplate.dto.place.show.ShowPlaceResponseDTO
+import boilerplate.repository.place.PlaceRepository
 import boilerplate.services.place.PlaceService
+
 import grails.converters.JSON
 
 class PlaceController extends BaseController {
@@ -14,17 +16,20 @@ class PlaceController extends BaseController {
     def save() {
         SavePlaceDTO savePlaceDTO = buildDtoFromJson(request.JSON, SavePlaceDTO)
         Place place = placeService.save(savePlaceDTO)
-        render(buildSaveResponse(place, new SavePlaceResponseDTO()) as JSON)
+        render(buildResponse(place) as JSON)
     }
     
     def get() {
-        Place place = placeService.get(params.long("id"))
-        render(place as JSON)
+        Place place = PlaceRepository.get(params.id)
+
+        ShowPlaceResponseDTO placeResponseDTO
+        if (place) placeResponseDTO = new ShowPlaceResponseDTO(place)
+        render(placeResponseDTO as JSON)
     }
 
     def delete() {
-        Place place = placeService.delete(params.long("id"))
-        render(place as JSON)
+        Place place = placeService.delete(params.id)
+        render(buildResponse(place) as JSON)
     }
 
     def list() {
