@@ -5,6 +5,8 @@ import boilerplate.dto.place.save.SavePlaceDTO
 
 class Place extends BaseEntity {
 
+    String publicId = UUID.randomUUID().toString()
+
     String name
 
     String city
