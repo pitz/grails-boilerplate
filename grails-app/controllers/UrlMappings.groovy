@@ -10,9 +10,15 @@ class UrlMappings {
             format = "json"
         }
 
-        "/place" {
+        "/places/$id?" {
             controller = "place"
             action = [POST: "save", DELETE: "delete", GET: "get"]
+            format = "json"
+        }
+
+        "/places/list" {
+            controller = "place"
+            action = [POST: "list"]
             format = "json"
         }
 
