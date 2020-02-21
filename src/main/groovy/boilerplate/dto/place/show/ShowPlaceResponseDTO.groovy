@@ -1,11 +1,12 @@
 package boilerplate.dto.place.show
 
+import boilerplate.domain.place.Place
 import grails.compiler.GrailsCompileStatic
 
 @GrailsCompileStatic
 class ShowPlaceResponseDTO {
 
-    Long id
+    String id
 
     String name
 
@@ -17,6 +18,12 @@ class ShowPlaceResponseDTO {
 
     Date dateCreated
     
-    Boolean deleted 
-
+    public ShowPlaceResponseDTO(Place place) {
+        this.id = place.publicId
+        this.name = place.name
+        this.city = place.city
+        this.state = place.state
+        this.lastUpdated = place.lastUpdated
+        this.dateCreated = place.lastUpdated
+    }
 }
