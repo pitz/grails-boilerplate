@@ -7,6 +7,4 @@ class DeletePlaceResponseDTO {
 
     Long id
     
-    Boolean deleted 
-
 }
