@@ -1,12 +1,14 @@
 package boilerplate.services.place
 
 import boilerplate.domain.place.Place
+import boilerplate.dto.place.list.ListPlaceDTO
 import boilerplate.dto.place.save.SavePlaceDTO
 import boilerplate.repository.place.PlaceRepository
 import boilerplate.utils.DomainUtils
 import boilerplate.utils.MessageUtils
 
 import grails.compiler.GrailsCompileStatic
+import grails.converters.JSON
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -44,5 +46,10 @@ class PlaceService {
         place.deleted = true
         place.save(failOnError: true)
         return place
+    }
+
+    public List<Place> list(Map params) {
+        List<Place> placeList = PlaceRepository.query(params).list(offset: params.offset ?: 0, max: params.max ?: 10)
+        return placeList
     }
 }

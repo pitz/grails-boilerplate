@@ -2,6 +2,8 @@ package boilerplate.controller.place
 
 import boilerplate.controller.base.BaseController
 import boilerplate.domain.place.Place
+import boilerplate.dto.place.list.ListPlaceDTO
+import boilerplate.dto.place.list.ListPlaceResponseDTO
 import boilerplate.dto.place.save.SavePlaceDTO
 import boilerplate.dto.place.show.ShowPlaceResponseDTO
 import boilerplate.repository.place.PlaceRepository
@@ -14,8 +16,8 @@ class PlaceController extends BaseController {
     PlaceService placeService
 
     def save() {
-        SavePlaceDTO savePlaceDTO = buildDtoFromJson(request.JSON, SavePlaceDTO)
-        Place place = placeService.save(savePlaceDTO)
+        SavePlaceDTO savePlaceDto = buildDtoFromJson(request.JSON, SavePlaceDTO)
+        Place place = placeService.save(savePlaceDto)
         render(buildResponse(place) as JSON)
     }
     
@@ -33,7 +35,10 @@ class PlaceController extends BaseController {
     }
 
     def list() {
-        Place place = placeService.list(params)
-        render(place as JSON)
+        ListPlaceDTO requestDto = buildDtoFromJson(request.JSON, ListPlaceDTO)
+        List<Place> placeList = placeService.list(requestDto.toMap())
+
+        ListPlaceResponseDTO placeListResponseDto = new ListPlaceResponseDTO(placeList)
+        render(placeListResponseDto as JSON)
     }
 }
