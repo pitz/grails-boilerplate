@@ -15,5 +15,11 @@ Para barrar utilizações mal intencionadas na API, um interceptor foi criado. O
 Eu ressalto que não é uma boa prática manter informações sigilosas (informações de base de produção) neste arquivo de configuração. 
 
 #### Como executar
-O primeiro passo para executar este projeto é criar um schema no seu banco de dados conforme você configurou as informações de dataSource no arquivo `application.yml`
- 
+O primeiro passo para executar este projeto é criar um schema no seu banco de dados conforme você configurou as informações de DataSource no arquivo `application.yml`. 
+
+Após a configuração do DataSource, abra o seu terminal no **diretório do projeto**:
+
+![carbon (4)](https://user-images.githubusercontent.com/42384045/75261094-51c30600-57c9-11ea-80c5-97ac40067003.png)
+
+
+
