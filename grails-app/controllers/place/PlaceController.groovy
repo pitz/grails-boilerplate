@@ -6,6 +6,7 @@ import boilerplate.dto.place.list.ListPlaceDTO
 import boilerplate.dto.place.list.ListPlaceResponseDTO
 import boilerplate.dto.place.save.SavePlaceDTO
 import boilerplate.dto.place.show.ShowPlaceResponseDTO
+import boilerplate.dto.place.update.UpdatePlaceDTO
 import boilerplate.repository.place.PlaceRepository
 import boilerplate.services.place.PlaceService
 
@@ -40,5 +41,11 @@ class PlaceController extends BaseController {
 
         ListPlaceResponseDTO placeListResponseDto = new ListPlaceResponseDTO(placeList)
         render(placeListResponseDto as JSON)
+    }
+
+    def update() {
+        UpdatePlaceDTO updatePlaceDTO = buildDtoFromJson(request.JSON, UpdatePlaceDTO)
+        Place place = placeService.update(params.id, updatePlaceDTO.properties)
+        render(buildResponse(place) as JSON)
     }
 }

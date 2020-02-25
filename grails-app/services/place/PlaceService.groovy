@@ -13,8 +13,6 @@ import grails.gorm.transactions.Transactional
 class PlaceService {
 
     public Place save(Map fields) {
-        println " @save "
-
         Place validatedPlace = validateSave(fields)
         if (validatedPlace.hasErrors()) return validatedPlace
 
@@ -46,6 +44,47 @@ class PlaceService {
         place.save(failOnError: true)
         return place
     }
+
+    public Place update(String publicId, Map fields) {
+        Place place = PlaceRepository.get(publicId)
+
+        Place validatedPlace = validateSave(fields)
+        if (validatedPlace.hasErrors()) return validatedPlace
+
+        if (fields.containsKey("name")) place.name = fields.name
+        if (fields.containsKey("city")) place.city = fields.city
+        if (fields.containsKey("state")) place.state = fields.state
+
+        place.save(failOnError: true)
+        return place
+    }
+
+    private Place validateUpdatePlace(Map params) {
+        Place validatePlace = new Place()
+
+        if (!params.containsKey("name") && !params.containsKey("city") && !params.containsKey("state")) {
+            DomainUtils.addError(validatePlace, MessageUtils.getMessage("boilerplate.domain.place.updateWithoutParams"))
+            return validatePlace
+        }
+
+        if (params.containsKey("name") && !params.name) {
+            DomainUtils.addError(validatePlace, MessageUtils.getMessage("boilerplate.domain.place.name.notNull"))
+            return validatePlace
+        }
+
+        if (params.containsKey("city") && !params.city) {
+            DomainUtils.addError(validatePlace, MessageUtils.getMessage("boilerplate.domain.place.city.notNull"))
+            return validatePlace
+        }
+
+        if (params.containsKey("state") && !params.state) {
+            DomainUtils.addError(validatePlace, MessageUtils.getMessage("boilerplate.domain.place.state.notNull"))
+            return validatePlace
+        }
+
+        return validatePlace
+    }
+
 
     public List<Place> list(Map params) {
         List<Place> placeList = PlaceRepository.query(params).list(offset: params.offset ?: 0, max: params.max ?: 10)
