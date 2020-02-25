@@ -17,7 +17,7 @@ class PlaceController extends BaseController {
 
     def save() {
         SavePlaceDTO savePlaceDto = buildDtoFromJson(request.JSON, SavePlaceDTO)
-        Place place = placeService.save(savePlaceDto)
+        Place place = placeService.save(savePlaceDto.properties)
         render(buildResponse(place) as JSON)
     }
     

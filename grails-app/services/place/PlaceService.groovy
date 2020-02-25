@@ -15,17 +15,19 @@ import grails.gorm.transactions.Transactional
 @GrailsCompileStatic
 class PlaceService {
 
-    public Place save(SavePlaceDTO placeDto) {
-        Place validatedPlace = validateSave(placeDto)
+    public Place save(Map fields) {
+        println " @save "
+
+        Place validatedPlace = validateSave(fields)
         if (validatedPlace.hasErrors()) return validatedPlace
 
-        Place place = new Place(placeDto)
+        Place place = new Place(fields.name.toString(), fields.city.toString(), fields.state.toString())
         place.save(failOnError: true)
         return place
     }
 
-    private Place validateSave(SavePlaceDTO placeDto) {
-        Place validatePlace = new Place(placeDto)
+    private Place validateSave(Map fields) {
+        Place validatePlace = new Place(fields.name.toString(), fields.city.toString(), fields.state.toString())
 
         if (!validatePlace.name)  DomainUtils.addError(validatePlace, MessageUtils.getMessage("boilerplate.domain.place.name.notNull"))
         if (!validatePlace.city)  DomainUtils.addError(validatePlace, MessageUtils.getMessage("boilerplate.domain.place.city.notNull"))

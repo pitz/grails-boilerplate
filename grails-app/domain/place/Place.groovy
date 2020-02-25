@@ -1,11 +1,10 @@
 package boilerplate.domain.place
 
 import boilerplate.base.BaseEntity
-import boilerplate.dto.place.save.SavePlaceDTO
 
 class Place extends BaseEntity {
 
-    String publicId = UUID.randomUUID().toString()
+    String publicId
 
     String name
 
@@ -13,9 +12,10 @@ class Place extends BaseEntity {
 
     String state
 
-    public Place(SavePlaceDTO placeDto) {
-        this.name = placeDto.name
-        this.city = placeDto.city
-        this.state = placeDto.state
+    public Place(String name, String city, String state) {
+        this.name = name
+        this.city = city
+        this.state = state
+        this.publicId = UUID.randomUUID().toString()
     }
 }
